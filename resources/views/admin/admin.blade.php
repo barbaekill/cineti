@@ -84,7 +84,7 @@
                                             <tr>
                                                 <th scope="row">{{$horario->idHorario}}</th>
                                                 <td>{{sprintf('%02d',$horario->hora)}}:{{sprintf('%02d',$horario->minuto)}}</td>
-                                                <td style="text-align:center"><i class="fa fa-pencil" style="color:#4285f4;font-size:25px" data-toggle="modal" data-target="#modalEditHorario" data-id="{{$horario->idHorario   }}" data-hora="{{$horario->hora}}" data-minuto="{{$horario->minuto}}"></i></td>
+                                                <td style="text-align:center"><i class="fa fa-pencil" style="color:#4285f4;font-size:25px;cursor:pointer" data-toggle="modal" data-target="#modalEditHorario" data-id="{{$horario->idHorario   }}" data-hora="{{$horario->hora}}" data-minuto="{{$horario->minuto}}"></i></td>
                                                 <td style="text-align:center"><a href="{{route('deleteHorarioAdmin',['id' => $horario->idHorario])}}"><i class="fa fa-times" style="color:#4285f4;font-size:25px"></i></a></td>     
                                             </tr>    
                                         @endforeach 
@@ -95,11 +95,11 @@
                                     @endforeach
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselHorario" role="button" data-slide="prev" style="top:95%">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-prev-icon my-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">voltar</span>
                                 </a>
                                 <a class="carousel-control-next" href="#carouselHorario" role="button" data-slide="next" style="top:95%">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-next-icon my-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">avançar</span>
                                 </a>
                             </div>
@@ -133,7 +133,7 @@
                                                 <th scope="row">{{$sala->idSala}}</th>
                                                 <td>{{$sala->tipo}}</td>
                                                 <td>{{$sala->nome}}</td>
-                                                <td style="text-align:center"><i class="fa fa-pencil" style="color:#4285f4;font-size:25px"></i></td>
+                                                <td style="text-align:center"><i class="fa fa-pencil" style="color:#4285f4;font-size:25px;cursor:pointer" data-toggle="modal" data-target="#modalEditSala" data-id="{{$sala->idSala}}" data-tipo="{{$sala->tipo}}" data-nome="{{$sala->nome}}"></i></td>
                                                 <td style="text-align:center"><a href="{{route('deleteSalaAdmin',['id' => $sala->idSala])}}"><i class="fa fa-times" style="color:#4285f4;font-size:25px"></i></a></td>        
                                             </tr>    
                                         @endforeach 
@@ -144,11 +144,11 @@
                                     @endforeach
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselSala" role="button" data-slide="prev" style="top:95%">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-prev-icon my-prev-icon" aria-hidden="true"></span>
                                 <span class="sr-only">voltar</span>
                                 </a>
                                 <a class="carousel-control-next" href="#carouselSala" role="button" data-slide="next" style="top:95%">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="carousel-control-next-icon my-next-icon" aria-hidden="true"></span>
                                 <span class="sr-only">avançar</span>
                                 </a>
                             </div>
@@ -175,9 +175,9 @@
             {!! Form::open(['route' => 'alteraHorario', 'class' => 'needs-validation', 'novalidate' => 'novalidate', 'id' => 'formHorario', 'method' => 'put']) !!}
                 <div class="form-row">
                     <div class="col">
-                        <label for="hora">Hora</label>
+                        <label for="horaModal">Hora</label>
                         <input type="text" id="horaModal" name="hora" class="form-control" required>    
-                        <input type="hidden" id="idModal" name="idHorario">
+                        <input type="hidden" id="idHorarioModal" name="idHorario">
                     </div>
                     <div class="col">
                         <label for="minuto">Minuto</label>
@@ -186,7 +186,38 @@
                 </div>
             </div>
             <div class="modal-footer">                
-                <button type="submit" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalEditSala" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalEditSalaLabel">Sala</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            {!! Form::open(['route' => 'alteraSala', 'class' => 'needs-validation', 'novalidate' => 'novalidate', 'id' => 'formSala', 'method' => 'put']) !!}
+                <div class="form-row">
+                    <div class="col">
+                        <label for="tipoModal">Tipo</label>
+                        <input type="text" id="tipoModal" name="tipo" class="form-control" required>    
+                        <input type="hidden" id="idSalaModal" name="idSala">
+                    </div>
+                    <div class="col">
+                        <label for="nomeModal">Nome</label>
+                        <input type="text" id="nomeModal" name="nome" class="form-control" required>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">                
+                <button type="submit" class="btn btn-primary">Salvar Alterações</button>
             </div>
             {!! Form::close() !!}
         </div>
@@ -206,8 +237,33 @@
             modal.find('.modal-title').text('Horário #' + id)
             $('#horaModal').val(hora)
             $('#minutoModal').val(minuto)
-            $('#idModal').val(id)
+            $('#idHorarioModal').val(id)
         })
+        $('#modalEditSala').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget)
+            var tipo = button.data('tipo')
+            var nome = button.data('nome')
+            var id = button.data('id');
+            var modal = $(this)
+            modal.find('.modal-title').text('Sala #' + id)
+            $('#tipoModal').val(tipo)
+            $('#nomeModal').val(nome)
+            $('#idSalaModal').val(id)
+        })
+        window.addEventListener('load', function() {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+                if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+            });
+        }, false);
     })();
 </script>
 @stop

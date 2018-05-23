@@ -12,6 +12,10 @@ class Assento extends Model
 
     public function sala()
     {
-        return $this->belongsTo('App\Sala', 'idSala');
+        return $this->belongsTo('App\Models\Sala', 'idSala');
+    }
+
+    public function sessoes(){
+        return $this->belongsToMany('App\Models\Sessao','assento_sessao','idAssento','idSessao');
     }
 }

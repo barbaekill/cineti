@@ -12,6 +12,6 @@ class Sala extends Model
 
     public function assentos()
     {
-        return $this->hasMany('App\Assento','idSala');
+        return $this->hasMany('App\Models\Assento','idSala');
     }
 }

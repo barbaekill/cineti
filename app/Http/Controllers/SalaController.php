@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Sala;
+use App\Models\Assento;
 use App\Models\Horario;
 use Illuminate\Http\Request;
 
@@ -16,11 +17,22 @@ class SalaController extends Controller
             ->with('salas', $salas);
     }
 
-    public function Cria(Request $request){
+    public function Cria(Request $request){        
         $sala = new Sala;
         $sala->tipo = $request->tipo;
         $sala->nome = $request->nome;
         $sala->save();
+        $assentos = [];
+        for($i=0;$i < 5;$i++){
+            for($j=0;$j < 16;$j++){
+                $assento = new Assento;
+                $assento->linha = $i;
+                $assento->coluna = $j;
+                $assento->paraDeficiente = 0;
+                $assentos[] = $assento;
+            }
+        }
+        $sala->assentos()->saveMany($assentos);
         return back();
     }
 
@@ -34,5 +46,16 @@ class SalaController extends Controller
             Sala::destroy($sala->idSala);
             return back();
         }        
+    }
+
+    public function Altera(Request $request){
+        $sala = Sala::find($request->idSala);
+
+        $sala->tipo = $request->tipo;
+        $sala->nome = $request->nome;
+
+        $sala->save();
+
+        return back();
     }
 }

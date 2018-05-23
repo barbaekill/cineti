@@ -13,74 +13,75 @@
             <!--Card content-->
             <div class="card-body">
                 <!-- Default form register -->
-                {!! Form::model($filme, ['route' => 'criaFilme', 'class' => 'needs-validation', 'novalidate' => 'novalidate', 'id' => 'formCria', 'enctype' => 'multipart/form-data']) !!}
+                {!! Form::model($filme, ['route' => 'alteraFilmeAdmin', 'method' => 'put','class' => 'needs-validation', 'novalidate' => 'novalidate', 'id' => 'formCria', 'enctype' => 'multipart/form-data']) !!}
                     <!-- Grid row -->
                         <!-- Default input -->
                     <h3 class="dark-grey-text text-center">
-                    <strong>Novo Filme</strong>
+                    <strong>Alterar Filme</strong>
                     </h3>
                     <hr>
                     <div class="form-group">
                         <label for="nome">Título</label>
-                        <input type="text" class="form-control" id="nome" name="nome" required>
+                        {!! Form::text('nome', null, ['class'=> 'form-control', 'required'=>'required']) !!}
+                        {!! Form::hidden('idFilme') !!}
                     </div>        
                     <!-- Grid row -->                                    
                     <!-- Default input -->
                     <div class="form-group">
                         <label for="nomeOriginal">Título Original</label>
-                        <input type="text" class="form-control" id="nomeOriginal" name="nomeOriginal" required>
+                        {!! Form::text('nomeOriginal', null, ['class'=> 'form-control', 'required'=>'required']) !!}
                     </div>
                     <!-- Grid row -->
                     <div class="form-row">
                         <!-- Default input -->
                         <div class="form-group col-md-7">
                             <label for="diretor">Diretor</label>
-                            <input type="text" class="form-control" id="diretor" name="diretor" required>
+                            {!! Form::text('diretor', null, ['class'=> 'form-control', 'required'=>'required']) !!}
                         </div>
                         <!-- Default input -->
                         <div class="form-group col-md-3">
                             <label for="tipo">Tipo</label>
-                            <input type="text" class="form-control" id="tipo" name="tipo" required>
+                            {!! Form::text('tipo', null, ['class'=> 'form-control', 'required'=>'required']) !!}
                         </div>    
                         <div class="form-group col-md-2">
                             <label for="anoLancamento">Ano</label>
-                            <input type="text" class="form-control" id="anoLancamento" name="anoLancamento" required>
+                            {!! Form::text('anoLancamento', null, ['class'=> 'form-control', 'required'=>'required']) !!}
                         </div>                        
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-9">
                             <label for="classificacao">Classificação Indicativa</label>
-                            <select class="form-control" id="classificacao" name="classificacao">
-                            <option value="0">Livre</option>
-                            <option value="10">Não recomendado para menores de dez anos</option>
-                            <option value="12">Não recomendado para menores de doze anos</option>
-                            <option value="14">Não recomendado para menores de catorze anos</option>
-                            <option value="16">Não recomendado para menores de dezesseis anos</option>
-                            <option value="18">Não recomendado para menores de dezoito anos</option>
-                            </select>
+                            {!! Form::select('classificacao',['0' => 'Livre',
+                                                              '10' => 'Não recomendado para menores de dez anos',
+                                                              '12' => 'Não recomendado para menores de doze anos',
+                                                              '14' => 'Não recomendado para menores de catorze anos',
+                                                              '16' => 'Não recomendado para menores de dezesseis anos',
+                                                              '18' => 'Não recomendado para menores de dezoito anos'
+                                                            ],null,['class' => 'form-control'])
+                             !!}                            
                         </div>
                         <div class="form-group col-md-3">
                             <label for="duracaoMinutos">Duração(min.)</label>
-                            <input type="text" class="form-control" id="duracaoMinutos" name="duracaoMinutos" required>
+                            {!! Form::text('duracaoMinutos', null, ['class'=> 'form-control', 'required'=>'required']) !!}
                         </div>     
                     </div>                    
                     <!-- Grid row -->
                     <!-- Default input -->
                     <div class="form-group">
                         <label for="sinopse">Sinopse</label>
-                        <textarea class="form-control" id="sinopse" name="sinopse" required></textarea>
+                        {!! Form::textarea('sinopse', null, ['class'=> 'form-control', 'required'=>'required', 'rows'=>'3']) !!}
                     </div>
                     <div class="form-group">
                         <label for="cartazImgPath">Imagem Cartaz</label>
-                        <input type="file" class="form-control" id="cartazImgPath" name="cartazImgPath" required>
+                        {!! Form::file('cartazImgPath', ['class'=> 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         <label for="headerImgPath">Imagem Cabeçalho</label>
-                        <input type="file" class="form-control" id="headerImgPath" name="headerImgPath" required>
+                        {!! Form::file('headerImgPath', ['class'=> 'form-control']) !!}
                     </div>
                     <div class="row justify-content-center">
                         <a href="{{url()->previous()}}"><button type="button" class="btn btn-primary btn-md">Voltar</button></a>
-                        <button type="submit" class="btn btn-primary btn-md">Salvar</button>
+                        {!! Form::submit('Salvar', ['class' => 'btn btn-primary btn-md']) !!}
                     </div>
                 {!! Form::close() !!}
 <!-- Default form register -->

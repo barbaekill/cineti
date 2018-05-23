@@ -6,9 +6,13 @@
 
     <!--Indicators-->
     <ol class="carousel-indicators">
-      <li data-target="#carouselHead" data-slide-to="0" class="active"></li>
-      <li data-target="#carouselHead" data-slide-to="1"></li>
-      <li data-target="#carouselHead" data-slide-to="2"></li>
+    @for($i = 0; $i < $filmes->count(); $i++)
+        @if($i == 0)
+            <li data-target="#carouselHead" data-slide-to="{{$i}}" class="active"></li>
+        @else
+            <li data-target="#carouselHead" data-slide-to="{{$i}}"></li>
+        @endif      
+    @endfor
     </ol>
     <!--/.Indicators-->
 
@@ -16,20 +20,26 @@
     <div class="carousel-inner" role="listbox">
 
       <!--First slide-->
-      <div class="carousel-item active">
-        <div class="view" style="background-image: url('img/destaques/19918-destaque.jpg'); background-repeat: no-repeat; background-size: cover;">
+      @foreach($filmes->take(5) as $filme)
+        @if ($loop->first)
+            <div class="carousel-item active">
+        @else
+            <div class="carousel-item">
+        @endif
+      
+        <div class="view" style="background-image: url('{{Storage::url($filme->headerImgPath)}}'); background-repeat: no-repeat; background-size: cover;">
 
           <!-- Mask & flexbox options-->
           <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
 
             <!-- Content -->
             <div class="text-center white-text mx-5 wow fadeIn">
-              <h1 class="mb-4"><strong>Jogador nº1</strong></h1>
+              <h1 class="mb-4"><strong>{{$filme->nome}}</strong></h1>
 
               <div class="clearfix"></div>
                 
               
-              <a target="_blank" href="detalhes-filme.html" class="btn btn-outline-white btn-lg">Detalhes
+              <a target="_blank" href="{{route('detalheFilme', ['id' => $filme->idFilme])}}" class="btn btn-outline-white btn-lg">Detalhes
                 <i class="fa fa-play ml-2"></i>
               </a>
             </div>
@@ -40,60 +50,7 @@
 
         </div>
       </div>
-      <!--/First slide-->
-
-      <!--Second slide-->
-      <div class="carousel-item">
-        <div class="view" style="background-image: url('img/destaques/20519-destaque.jpg'); background-repeat: no-repeat; background-size: cover;">
-
-          <!-- Mask & flexbox options-->
-          <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-
-            <!-- Content -->
-            <div class="text-center white-text mx-5 wow fadeIn">
-              <h1 class="mb-4"><strong>Círculo de Fogo: A Revolta</strong></h1>
-
-              <div class="clearfix"></div>
-
-              <a target="_blank" href="detalhes-filme.html" class="btn btn-outline-white btn-lg">Detalhes
-                <i class="fa fa-play ml-2"></i>
-              </a>
-            </div>
-            <!-- Content -->
-
-          </div>
-          <!-- Mask & flexbox options-->
-
-        </div>
-      </div>
-      <!--/Second slide-->
-
-      <!--Third slide-->
-      <div class="carousel-item">
-        <div class="view" style="background-image: url('img/destaques/20916-destaque.jpg'); background-repeat: no-repeat; background-size: cover;">
-
-          <!-- Mask & flexbox options-->
-          <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-
-            <!-- Content -->
-            <div class="text-center white-text mx-5 wow fadeIn">
-              <h1 class="mb-4"><strong>Vingadores: Guerra Infinita</strong></h1>
-
-              <div class="clearfix"></div>
-
-              <a target="_blank" href="detalhes-filme.html" class="btn btn-outline-white btn-lg">Detalhes
-                <i class="fa fa-play ml-2"></i>
-              </a>
-            </div>
-            <!-- Content -->
-
-          </div>
-          <!-- Mask & flexbox options-->
-
-        </div>
-      </div>
-      <!--/Third slide-->
-
+      @endforeach
     </div>
     <!--/.Slides-->
 
@@ -121,22 +78,23 @@
         <section class="pb-3 text-center ">
 
             <!--Section heading-->
-            <h1 class="h1 py-5">Em Cartaz</h1>
+            <h1 class="h1 py-5">Em Destaque</h1>
             
             <!--Grid row-->
             <div class="row">
 
                 <!--Grid column-->
+                @foreach($filmes as $filme)
                 <div class="col-lg-3 col-md-6 mb-4">
 
                     <!--Collection card-->
                     <div class="card collection-card z-depth-1-half">
                         <!--Card image-->
                         <div class="view zoom">
-                            <img src="img/cartaz/19918-cartaz.jpg" class="img-fluid" alt="">
+                            <img src="{{Storage::url($filme->cartazImgPath)}}" class="img-fluid" alt="">
                             <div class="stripe dark">
-                                <a href="detalhes-filme.html">
-                                    <p>Jogador nº1
+                                <a href="{{route('detalheFilme', ['id' => $filme->idFilme])}}">
+                                    <p>{{$filme->nome}}
                                         <i class="fa fa-angle-right"></i>
                                     </p>
                                 </a>
@@ -147,77 +105,7 @@
                     <!--Collection card-->
 
                 </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-
-                    <!--Collection card-->
-                    <div class="card collection-card z-depth-1-half">
-                        <!--Card image-->
-                        <div class="view zoom">
-                            <img src="img/cartaz/20519-cartaz.jpg" class="img-fluid" alt="">
-                            <div class="stripe dark">
-                                <a href="detalhes-filme.html">
-                                    <p>Círculo de Fogo: A Revolta
-                                        <i class="fa fa-angle-right"></i>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                        <!--Card image-->
-                    </div>
-                    <!--Collection card-->
-
-                </div>
-                <!--Grid column-->
-
-                <!--Grid column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-
-                    <!--Collection card-->
-                    <div class="card collection-card z-depth-1-half">
-                        <!--Card image-->
-                        <div class="view zoom">
-                            <img src="img/cartaz/20535-cartaz.jpg" class="img-fluid" alt="">
-                            <div class="stripe dark">
-                                <a href="detalhes-filme.html">
-                                    <p>Pantera Negra
-                                        <i class="fa fa-angle-right"></i>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                        <!--Card image-->
-                    </div>
-                    <!--Collection card-->
-
-                </div>
-                <!--Grid column-->
-
-                <!--Fourth column-->
-                <div class="col-lg-3 col-md-6 mb-4">
-
-                    <!--Collection card-->
-                    <div class="card collection-card z-depth-1-half">
-                        <!--Card image-->
-                        <div class="view zoom">
-                            <img src="img/cartaz/20916-cartaz.jpg" class="img-fluid" alt="">
-                            <div class="stripe dark">
-                                <a href="detalhes-filme.html">
-                                    <p>Vingadores Guerra Infinita 
-                                        <i class="fa fa-angle-right"></i>
-                                    </p>
-                                </a>
-                            </div>
-                        </div>
-                        <!--Card image-->
-                    </div>
-                    <!--Collection card-->
-
-                </div>
-                <!--Fourth column-->
-
+                @endforeach
             </div>
             <!--Grid row-->
 

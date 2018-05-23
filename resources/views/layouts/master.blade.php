@@ -6,11 +6,12 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>CINETI - Home</title>
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::asset('css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Material Design Bootstrap -->
     <link href="{{ URL::asset('css/mdb.min.css') }}" rel="stylesheet">
+    <link href="{{URL::asset('css/compiled.min.css')}}" rel="stylesheet">
     <!-- Toastr -->
     <link href="{{ URL::asset('css/toastr.min.css') }}" rel="stylesheet"/>
     <!-- style CINETI -->
@@ -24,7 +25,7 @@
     <div class="container">
 
       <!-- Brand -->
-      <a class="navbar-brand" href="index.html">
+      <a class="navbar-brand" href="{{route('home')}}">
         <strong>CINETI</strong>
       </a>
 
@@ -39,27 +40,21 @@
 
         <!-- MENU -->
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">Home
-              <span class="sr-only">(current)</span>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('indexSessao')}}">Sessões
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" target="_blank">Salas</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" target="_blank">Filmes</a>
-          </li>
+          
           @auth          
             @if(Auth::user()->tipo == 2)
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Admin</a>
-                <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" href="admin/filmes">Cadastrar filme</a>
-                  <a class="dropdown-item" href="#">Cadastrar sala</a>
-                  <a class="dropdown-item" href="#">Cadastrar horário</a>
-                  <a class="dropdown-item" href="#">Cadastrar sessão</a>
-                </div>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('indexHorarioAdmin')}}" target="_blank">Salas e Horários</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('indexFilmeAdmin')}}" target="_blank">Filmes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{route('novaSessaoAdmin')}}" target="_blank">Nova Sessão</a>
               </li>
             @endif
           @endauth
@@ -74,7 +69,7 @@
           </div>
           @endauth
           @guest
-            <a href="login" class="nav-link border border-light rounded">
+            <a href="{{route('postLogin')}}" class="nav-link border border-light rounded">
                 <i class="fa fa-user mr-2"></i>MINHA CONTA
             </a>
           @endguest            
