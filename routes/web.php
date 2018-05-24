@@ -44,4 +44,5 @@ Route::put('/admin/salas', 'SalaController@Altera')->name('alteraSala');
 
 Route::get('/admin/sessoes/novo', 'SessaoController@Novo')->name('novaSessaoAdmin');
 Route::get('sessoes', 'SessaoController@Index')->name('indexSessao');
+Route::get('sessoes/assentos', 'SessaoController@Assentos')->name('assentosSessao');
 Route::post('/admin/sessoes/novo', 'SessaoController@Cria')->name('criaSessaoAdmin');

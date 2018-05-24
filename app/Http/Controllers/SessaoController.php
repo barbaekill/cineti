@@ -42,8 +42,14 @@ class SessaoController extends Controller
         $sessao->idFilme = $filme->idFilme;
         $sessao->idHorario = $horario->idHorario;
         $sessao->idSala = $sala->idSala;
-        $sessao->save();
+        $sessao->save();        
+        $sessao->assentos()->saveMany($sala->assentos()->get());
         
         return redirect()->route('home');
+    }
+
+    public function Assentos(Request $request){
+        $sessao = Sessao::find($request->id);
+        return response()->json($sessao->assentos);
     }
 }

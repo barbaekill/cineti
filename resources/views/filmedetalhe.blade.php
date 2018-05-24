@@ -39,18 +39,8 @@
                             <td class="borderless">{{$dia[0]->diasemana}}</td>
                             @foreach($dia as $sessao)
                             <td class="borderless">                                
-                                <button type="button" class="btn btn-primary btn-rounded btn-sm my-0"  data-toggle="modal" data-target="#fullHeightModalRight">{{$sessao->horario->horarioformatado}}</button>
-                            </td>
-                            <td class="borderless">                                
-                                <button type="button" class="btn btn-primary btn-rounded btn-sm my-0"  data-toggle="modal" data-target="#fullHeightModalRight">{{$sessao->horario->horarioformatado}}</button>
-                            </td>
-                            <td class="borderless">                                
-                                <button type="button" class="btn btn-primary btn-rounded btn-sm my-0"  data-toggle="modal" data-target="#fullHeightModalRight">{{$sessao->horario->horarioformatado}}</button>
-                            </td>
-                            <td class="borderless">                                
-                                <button type="button" class="btn btn-primary btn-rounded btn-sm my-0"  data-toggle="modal" data-target="#fullHeightModalRight">{{$sessao->horario->horarioformatado}}</button>
-                            </td>
-                            
+                                <button type="button" id="{{$sessao->idSessao}}" name="sessao" class="btn btn-primary btn-rounded btn-sm my-0">{{$sessao->horario->horarioformatado}}</button>
+                            </td>                                                      
                             @endforeach
                         </tr>
                     @endforeach
@@ -67,7 +57,7 @@
         <!--/.Card-->
     </div>
 </div>
-<div class="modal fade" id="fullHeightModalRight" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+<div class="modal fade" id="modalForm" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
 	  <div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -78,59 +68,57 @@
 			<div class="requestwizard">
 				<div class="requestwizard-row setup-panel">
 					<div class="requestwizard-step">
-			            <a href="#step-1" type="button" class="btn btn-primary btn-circle"><i class="fas fa-couch my-fa" style="padding-top: 8px;"></i></a>
+			            <a href="#step-1" type="button" class="btn btn-info btn-circle"><i class="fas fa-couch my-fa" style="padding-top: 8px;"></i></a>
 			            <p>Escolha de Assentos</p>
-			        </div>
+			        </div>			
+					<div class="requestwizard-step">
+			            <a href="#step-2" type="button" class="btn btn-blue-grey btn-circle" disabled="disabled"><i class="fa fa-ticket my-fa"></i></a>
+			            <p>Ingressos</p>
+			        </div>		
 			        <div class="requestwizard-step">
-			            <a href="#step-2" type="button" class="btn btn-primary btn-circle" disabled="disabled"><i class="fa fa-credit-card my-fa"></i></a>
+			            <a href="#step-3" type="button" class="btn btn-blue-grey btn-circle" disabled="disabled"><i class="fa fa-credit-card my-fa"></i></a>
 			            <p>Meio de Pagamento</p>
 			        </div>
 		    	</div>
-			</div>
-	
+			</div>	
 	<form role="form">
 	    <div class="row setup-content" id="step-1">
 	        <div class="col-md-12">
-	            <div class="col-md-12">
-	                <div class="form-group">
-	                    <label class="control-label">Full Name</label>
-	                    <input  maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name"  />
-	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">Day time phone</label>
-	                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
-	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">Alternative phone</label>
-	                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
-	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">Email address</label>
-	                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
-	                </div>
-	                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+	            <div class="col-md-12 sub-form needs-validation" style="text-align:center">					
+					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
 	            </div>
 	        </div>
 	    </div>
 	    <div class="row setup-content" id="step-2">
 	        <div class="col-md-12">
-	            <div class="col-md-12">
+	            <div class="col-md-12 sub-form needs-validation">
 	                <div class="form-group">
 	                    <label class="control-label">Name of your project</label>
-	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
+	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" required/>
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label">Address of project site</label>
-	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" />
-	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">When do you want to start your project</label>
-	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Address"  />
+	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" required/>
 	                </div>
 	                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
 	            </div>
 	        </div>
-	    </div>	    
+	    </div>	   
+		<div class="row setup-content" id="step-3">
+	        <div class="col-md-12">
+	            <div class="col-md-12 sub-form needs-validation">
+	                <div class="form-group">
+	                    <label class="control-label">Full Name</label>
+	                    <input  maxlength="100" type="text" class="form-control" placeholder="Enter First Name" required/>
+	                </div>
+	                <div class="form-group">
+	                    <label class="control-label">Day time phone</label>
+	                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" required/>
+	                </div>	                
+	                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+	            </div>
+	        </div>
+	    </div> 
 	</form>
 
 
@@ -145,7 +133,7 @@
 <script src="{{ URL::asset('js/modalform.js') }}"></script>
 <script type="text/javascript">
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+		$('[data-toggle="tooltip"]').tooltip()
     })
 </script>
 @stop

@@ -22,19 +22,19 @@ class Sessao extends Model
     ];
 
     public function filme(){
-        return $this->hasOne('App\Models\Filme', 'idFilme');
+        return $this->hasOne('App\Models\Filme', 'idFilme', 'idFilme');
     }
 
     public function sala(){
-        return $this->hasOne('App\Models\Sala', 'idSala');
+        return $this->hasOne('App\Models\Sala', 'idSala', 'idSala');
     }
 
     public function horario(){
-        return $this->hasOne('App\Models\Horario', 'idHorario');
+        return $this->hasOne('App\Models\Horario', 'idHorario', 'idHorario');
     }
 
     public function assentos(){
-        return $this->belongsToMany('App\Models\Assentos','assento_sessao','idSessao','idAssento');
+        return $this->belongsToMany('App\Models\Assento','assento_sessao','idSessao','idAssento')->withPivot('disponivel');
     }
 
     public function setDataAttribute($value){
