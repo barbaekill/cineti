@@ -71,6 +71,10 @@
                         <label for="sinopse">Sinopse</label>
                         {!! Form::textarea('sinopse', null, ['class'=> 'form-control', 'required'=>'required', 'rows'=>'3']) !!}
                     </div>
+                    <div class="form-group pull-right">                            
+                            <input type="checkbox" value="1" class="form-check-input" id="destaque" name="destaque">
+                            <label for="destaque" class="form-check-label">Em destaque</label>
+                    </div>
                     <div class="form-group">
                         <label for="cartazImgPath">Imagem Cartaz</label>
                         {!! Form::file('cartazImgPath', ['class'=> 'form-control']) !!}
