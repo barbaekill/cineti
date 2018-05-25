@@ -13,4 +13,8 @@ class Compra extends Model
     public function assentos(){
         return $this->belongsToMany('App\Models\Assento','compra_assento','idCompra','idAssento')->withPivot('meia');
     }
+
+    public function sessao(){
+        return $this->hasOne('App\Models\Sessao', 'idSessao', 'idSessao');
+    }
 }
