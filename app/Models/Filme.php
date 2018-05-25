@@ -8,7 +8,7 @@ class Filme extends Model
 {
     protected $table = 'filme';
     protected $primaryKey = 'idFilme'; 
-    protected $fillable = ['nome','nomeOriginal','anoLancamento','diretor','sinopse','tipo','classificacao','duracaoMinutos','idFilme'];
+    protected $fillable = ['nome','nomeOriginal','anoLancamento','diretor','sinopse','tipo','classificacao','duracaoMinutos','idFilme','destaque'];
     protected $guarded = ['cartazImgPath','headerImgPath'];
     public $timestamps = false;
 

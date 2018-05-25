@@ -70,6 +70,10 @@
                         <label for="sinopse">Sinopse</label>
                         <textarea class="form-control" id="sinopse" name="sinopse" required></textarea>
                     </div>
+                    <div class="form-group pull-right">                            
+                            <input type="checkbox" value="1" class="form-check-input" id="destaque" name="destaque">
+                            <label for="destaque" class="form-check-label">Em destaque</label>
+                    </div>
                     <div class="form-group">
                         <label for="cartazImgPath">Imagem Cartaz</label>
                         <input type="file" class="form-control" id="cartazImgPath" name="cartazImgPath" required>

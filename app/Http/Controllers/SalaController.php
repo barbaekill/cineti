@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Sala;
 use App\Models\Assento;
 use App\Models\Horario;
+use App\Models\Sessao; 
 use Illuminate\Http\Request;
 
 class SalaController extends Controller
@@ -38,14 +39,22 @@ class SalaController extends Controller
 
     public function Delete($id){
         $sala = Sala::find($id);
+        $sessoes = Sessao::whereHas('sala', function($query) use ($sala){
+            $query->where('idSala', $sala->idSala)
+                  ->where('ativa',1);               
+        })->get();
         if($sala == null){
             return back()
                 ->with('message','Esta sala não existe')
                 ->with('type','error');
+        }else if($sessoes->count() > 0){
+            return back()
+                ->with('message','Existem sessões cadastradas nesta sala. Não é possível excluir!')
+                ->with('type','error');
         }else{
-            Sala::destroy($sala->idSala);
+            $sala->delete();
             return back();
-        }        
+        } 
     }
 
     public function Altera(Request $request){

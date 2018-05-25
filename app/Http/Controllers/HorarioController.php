@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Horario;
 use App\Models\Sala;
+use App\Models\Sessao; 
 use Illuminate\Http\Request;
 
 class HorarioController extends Controller
@@ -26,9 +27,17 @@ class HorarioController extends Controller
 
     public function Delete($id){
         $horario = Horario::find($id);
+        $sessoes = Sessao::whereHas('horario', function($query) use ($horario){
+            $query->where('idHorario', $horario->idHorario)
+                  ->where('ativa',1);               
+        })->get();
         if($horario == null){
             return back()
                 ->with('message','Este horário não existe')
+                ->with('type','error');
+        }else if($sessoes->count() > 0){
+            return back()
+                ->with('message','Existem sessões cadastradas neste horário. Não é possível excluir!')
                 ->with('type','error');
         }else{
             Horario::destroy($horario->idHorario);

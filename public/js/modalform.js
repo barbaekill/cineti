@@ -151,7 +151,7 @@ $(document).ready(function () {
                             }
                         })
                     }else{
-                        var elementoHtml = assentoIndispisp.prependTo(formAssento);
+                        var elementoHtml = assentoIndisp.prependTo(formAssento);
                     }
                     
                     if(i % 16 === 0){
@@ -163,7 +163,8 @@ $(document).ready(function () {
             var horario = button.data('horario');
             var sala = button.data('sala');
             var valor = button.data('valor');  
-            var modal = $('#modalForm');
+            var modal = $('#modalForm');            
+            var deleteButton = $('#deleteButton').attr('href','/admin/sessoes/inativa/'+idSessao);
             modal.find('#sala').val(sala);
             modal.find('#horario').val(horario);
             modal.find('#valorAssento').val('R$' + valor);
@@ -175,17 +176,29 @@ $(document).ready(function () {
 
     
     $('#modalForm').on('hidden.bs.modal', function (e) {
+        var step1 = $('#step-1');
+        var step1Href = $('a[href="#step-1"');
         $('.dot').remove();
         $('br','#step-1').remove();
+        navListItems.removeClass('btn-primary').removeClass('btn-info').addClass('btn-blue-grey');
+        allWells.hide();
+        step1.show();
+        step1Href.removeClass('btn-blue-grey').addClass('btn-primary');
         assentosSelecionados.length = 0;
     })      
 
     $('#formCompra').submit(function(){
         var assentos = [];
         $.each(assentosSelecionados,function(i,assento){
+            var meia;
+            if(assento.meia != undefined){
+                meia = assento.meia
+            }else{
+                meia = 0;
+            }
             assentos.push({
                 idAssento:assento.idAssento,
-                meia:assento.meia
+                meia:meia
             })
         });
         var formData ={
@@ -199,16 +212,40 @@ $(document).ready(function () {
             'codigoSeguranca' : $('#codigoSeguranca').val()
         }
 
+        toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "4000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+            }
+
         $.ajax({
             type        : 'POST',
             headers: {'X-CSRF-TOKEN': $('#token').val()},
             url         : '/compra/novo',
             data        : JSON.stringify(formData), 
             contentType : "application/json",
-            processData: false
-        }).done(function(response){
-            console.log(response);
-        })
+            processData : false,
+            success : function(){
+                    toastr["success"]("Compra realizada com sucesso!");
+            },
+            error : function(){
+                    toastr["error"]("Houve algum erro.");
+            }
+        });
+
+        $('#modalForm').modal('hide');
 
         event.preventDefault();
     })

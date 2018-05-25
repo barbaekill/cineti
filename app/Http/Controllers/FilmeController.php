@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Filme; 
+use App\Models\Sessao; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -44,8 +45,20 @@ class FilmeController extends Controller
     }
 
     public function Deleta($id){
-        Filme::destroy($id);        
-        return redirect()->route('indexFilmeAdmin');
+        $filme = Filme::find($id);
+        $sessoes = Sessao::whereHas('filme', function($query) use ($filme){
+            $query->where('idFilme', $filme->idFilme)
+                  ->where('ativa',1);               
+        })->get();
+
+        if($sessoes->count() > 0){
+            return back()
+                ->with('message','Existem sessões cadastradas neste filme. Não é possível excluir!')
+                ->with('type','error');
+        }else{
+            Filme::destroy($id);        
+            return redirect()->route('indexFilmeAdmin');
+        }        
     }
 
     public function Altera(Request $request){
@@ -67,7 +80,7 @@ class FilmeController extends Controller
 
     public function Detalhes($id){
         $filme = Filme::find($id);
-        $sessoes = $filme->sessoes()->get();
+        $sessoes = $filme->sessoes()->where('ativa',1)->get();
         $sessoesPorDia = $sessoes->groupBy('data');       
         return view('filmedetalhe')
             ->with('filme',$filme)

@@ -15,7 +15,11 @@ class CompraController extends Controller
         $compra->idCliente = $request->input('idCliente');
         $compra->idSessao = $request->input('idSessao');
         $compra->save();
-        $assentoCollection = collect($request->input('assentos'));        
-        $compra->assentos()->attach($assentoCollection);
+        $assentosSelecionados = collect($request->input('assentos'));        
+        $compra->assentos()->attach($assentosSelecionados);
+        foreach($assentosSelecionados as $assento){
+            $compra->sessao->assentos()->updateExistingPivot($assento,['disponivel' => 0], false);
+        }
+        return $compra->sessao->assentos;
     }
 }

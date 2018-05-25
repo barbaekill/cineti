@@ -48,13 +48,13 @@
           @auth          
             @if(Auth::user()->tipo == 2)
               <li class="nav-item">
-                <a class="nav-link" href="{{route('indexHorarioAdmin')}}" target="_blank">Salas e Horários</a>
+                <a class="nav-link" href="{{route('indexHorarioAdmin')}}">Salas e Horários</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{route('indexFilmeAdmin')}}" target="_blank">Filmes</a>
+                <a class="nav-link" href="{{route('indexFilmeAdmin')}}">Filmes</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{route('novaSessaoAdmin')}}" target="_blank">Nova Sessão</a>
+                <a class="nav-link" href="{{route('novaSessaoAdmin')}}">Nova Sessão</a>
               </li>
             @endif
           @endauth
@@ -65,7 +65,7 @@
           <li class="nav-item">
           @auth
           <div class="nav-link">
-              <i class="fa fa-user mr-2"></i>Olá, {{Auth::user()->nome}} | <span style="cursor:pointer" onClick="(function(){window.location.href = 'logout';})();"><i class="fa fa-sign-out"></i></span>
+              <i class="fa fa-user mr-2"></i>Olá, {{Auth::user()->nome}} | <span style="cursor:pointer" onClick="(function(){window.location.href = '{{route('logout')}}';})();"><i class="fa fa-sign-out"></i></span>
           </div>
           @endauth
           @guest

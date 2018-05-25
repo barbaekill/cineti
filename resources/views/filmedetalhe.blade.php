@@ -21,10 +21,14 @@
 
             <!--Card content-->
             <div class="card-body text-center">
-                <!--Title-->                                              
-                <a href="{{route('editaFilmeAdmin', ['id' => $filme->idFilme])}}"><button type="button" class="btn-floating btn-primary btn-sm" style="border-width:0px;position:absolute; top:0; right:0;" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-pencil"></i></button></a>  
-                <a href="{{route('deletaFilmeAdmin', ['id' => $filme->idFilme])}}"><button type="button" class="btn-floating btn-primary btn-sm" style="border-width:0px;position:absolute; top:0; right:5%;" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-times"></i></button></a>
-                <h4 class="card-title"><strong>{{$filme->nome}}</strong></h4>                
+                <!--Title-->                 
+				@auth          
+            		@if(Auth::user()->tipo == 2)                             
+                		<a href="{{route('editaFilmeAdmin', ['id' => $filme->idFilme])}}"><button type="button" class="btn-floating btn-primary btn-sm" style="border-width:0px;position:absolute; top:0; right:0;" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-pencil"></i></button></a>  
+                		<a href="{{route('deletaFilmeAdmin', ['id' => $filme->idFilme])}}"><button type="button" class="btn-floating btn-primary btn-sm" style="border-width:0px;position:absolute; top:0; right:5%;" data-toggle="tooltip" data-placement="top" title="Excluir"><i class="fa fa-times"></i></button></a>
+					@endif
+				@endauth
+				<h4 class="card-title"><strong>{{$filme->nome}}</strong></h4>                
                 <p class="card-text text-left">{{$filme->sinopse}}</p>
                 <p class="card-text text-left">Tipo: {{$filme->tipo}}<br>
                 Dirigido por: {{$filme->diretor}}<br>
@@ -38,8 +42,13 @@
                         <tr class="full-border">
                             <td class="borderless">{{$dia[0]->diasemana}}</td>
                             @foreach($dia as $sessao)
-                            <td class="borderless">                                
-                                <button type="button" id="{{$sessao->idSessao}}" data-horario="{{$sessao->horario->horarioformatado}}" data-sala="{{$sessao->sala->nome}}" data-valor="{{$sessao->valorAssento}}" name="sessao" class="btn btn-primary btn-rounded btn-sm my-0">{{$sessao->horario->horarioformatado}}</button>
+                            <td class="borderless">         
+								@auth
+									<button type="button" id="{{$sessao->idSessao}}" data-horario="{{$sessao->horario->horarioformatado}}" data-sala="{{$sessao->sala->nome}}" data-valor="{{$sessao->valorAssento}}" name="sessao" class="btn btn-primary btn-rounded btn-sm my-0">{{$sessao->horario->horarioformatado}}</button>
+								@endauth
+								@guest
+									<a href="{{route('getLogin')}}"><button type="button" name="sessao" class="btn btn-primary btn-rounded btn-sm my-0">{{$sessao->horario->horarioformatado}}</button>
+								@endguest 
                             </td>                                                      
                             @endforeach
                         </tr>
@@ -96,6 +105,11 @@
 						</div>
 					</div>
 					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Próximo</button>
+					@auth          
+            			@if(Auth::user()->tipo == 2) 
+							<a id="deleteButton" class="btn btn-blue-grey btn-lg pull-left">Inativar Sessão</a>
+						@endif
+					@endauth
 	            </div>
 	        </div>
 	    </div>

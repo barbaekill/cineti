@@ -11,12 +11,18 @@ use App\Models\Horario;
 class SessaoController extends Controller
 {
     public function Index(){
-        $filmes = Filme::has('sessoes')->get();
+        $filmes = Filme::whereHas('sessoes',function($query){
+                            $query->where('ativa',1);
+                        })->get();
         return view('listaSessoes')->with('filmes', $filmes);
     }
 
     public function IndexDestaque(){
-        $filmes = Filme::has('sessoes')->where('destaque', 1)->get();
+        $filmes = Filme::whereHas('sessoes',function($query){
+                            $query->where('ativa',1);
+                        })
+                        ->where('destaque', 1)
+                        ->get();
         return view('index')->with('filmes', $filmes);
     }
 
@@ -37,6 +43,18 @@ class SessaoController extends Controller
         $filme = Filme::find($request->idFilme);
         $sala = Sala::find($request->idSala);
         $horario = Horario::find($request->idHorario);
+        $sessoes = Sessao::where('idSala', $sala->idSala)
+                           ->where('idHorario', $horario->idHorario)
+                           ->where('data', $request->data)
+                           ->where('ativa',1)
+                           ->get();
+
+        if($sessoes->count() > 0){
+            return back()
+                ->with('message','Já existe uma sessão cadastrada neste horário e sala')
+                ->with('type','error');
+        }
+
         $sessao->data = $request->data;
         $sessao->valorAssento = $request->valorAssento;
         $sessao->idFilme = $filme->idFilme;
@@ -46,6 +64,13 @@ class SessaoController extends Controller
         $sessao->assentos()->saveMany($sala->assentos()->get());
         
         return redirect()->route('home');
+    }
+
+    public function Inativa($id){
+        $sessao = Sessao::find($id);
+        $sessao->ativa = 0;
+        $sessao->save();
+        return back();
     }
 
     public function Assentos(Request $request){
