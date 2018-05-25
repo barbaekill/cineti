@@ -81,7 +81,7 @@
 			        </div>
 		    	</div>
 			</div>	
-	<form role="form">
+	<form id="formCompra" role="form">
 	    <div class="row setup-content" id="step-1">
 	        <div class="col-md-12">
 	            <div class="col-md-12 sub-form needs-validation" style="text-align:center">	
@@ -130,7 +130,7 @@
 	            <div class="col-md-12 sub-form needs-validation">
 	                <div class="form-group">
 	                    <label class="control-label">Número do Cartão</label>
-	                    <input  maxlength="100" type="text" class="form-control" id="cc" name="cc" required/>
+	                    <input  maxlength="100" type="text" class="form-control" id="numeroCartao" name="numeroCartao" required/>
 					</div>
 					<div class="form-row">						
 						<div class="form-group col-md-3">
@@ -143,11 +143,16 @@
 						</div>
 						<div class="form-group col-md-3 offset-3">
 							<label class="control-label">Código</label>
-							<input maxlength="100" type="text" class="form-control" placeholder="123" id="codigo" name="codigo" required/>
+							<input maxlength="100" type="text" class="form-control" placeholder="123" id="codigoSeguranca" name="codigoSeguranca" required/>
 						</div>
-					</div>	                
-					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Comprar</button>
-					<button class="btn btn-blue-grey prvsBtn btn-lg pull-left" type="submit" >Voltar</button>
+					</div>	          
+					<input type="hidden" id="idSessao">
+					<input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
+					@auth
+					<input type="hidden" id="idCliente" value="{{Auth::user()->idUsuario}}">      
+					@endauth
+					<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" >Comprar</button>
+					<button class="btn btn-blue-grey prvsBtn btn-lg pull-left" type="button" >Voltar</button>
 	            </div>
 	        </div>
 	    </div> 

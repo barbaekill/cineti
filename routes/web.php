@@ -46,3 +46,5 @@ Route::get('/admin/sessoes/novo', 'SessaoController@Novo')->name('novaSessaoAdmi
 Route::get('sessoes', 'SessaoController@Index')->name('indexSessao');
 Route::get('sessoes/assentos', 'SessaoController@Assentos')->name('assentosSessao');
 Route::post('/admin/sessoes/novo', 'SessaoController@Cria')->name('criaSessaoAdmin');
+
+Route::post('compra/novo','CompraController@Cria')->name('criaCompra');

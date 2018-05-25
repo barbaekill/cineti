@@ -167,6 +167,7 @@ $(document).ready(function () {
             modal.find('#sala').val(sala);
             modal.find('#horario').val(horario);
             modal.find('#valorAssento').val('R$' + valor);
+            modal.find('#idSessao').val(idSessao);
             modal.modal('show');
             $('[data-toggle="tooltip"]').tooltip();
         });
@@ -178,6 +179,39 @@ $(document).ready(function () {
         $('br','#step-1').remove();
         assentosSelecionados.length = 0;
     })      
+
+    $('#formCompra').submit(function(){
+        var assentos = [];
+        $.each(assentosSelecionados,function(i,assento){
+            assentos.push({
+                idAssento:assento.idAssento,
+                meia:assento.meia
+            })
+        });
+        var formData ={
+            'assentos' : assentos,
+            'valorTotal' : $('#valorTotal').val().substring(2),
+            'idSessao' : $('#idSessao').val(),
+            'idCliente' : $('#idCliente').val(),
+            'numeroCartao' : $('#numeroCartao').val(),
+            'mesValidade' : $('#mesValidade').val(),
+            'anoValidade' : $('#anoValidade').val(),
+            'codigoSeguranca' : $('#codigoSeguranca').val()
+        }
+
+        $.ajax({
+            type        : 'POST',
+            headers: {'X-CSRF-TOKEN': $('#token').val()},
+            url         : '/compra/novo',
+            data        : JSON.stringify(formData), 
+            contentType : "application/json",
+            processData: false
+        }).done(function(response){
+            console.log(response);
+        })
+
+        event.preventDefault();
+    })
 
     $('div.setup-panel div a.btn-info').trigger('click');
 });
