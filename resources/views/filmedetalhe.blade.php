@@ -39,7 +39,7 @@
                             <td class="borderless">{{$dia[0]->diasemana}}</td>
                             @foreach($dia as $sessao)
                             <td class="borderless">                                
-                                <button type="button" id="{{$sessao->idSessao}}" name="sessao" class="btn btn-primary btn-rounded btn-sm my-0">{{$sessao->horario->horarioformatado}}</button>
+                                <button type="button" id="{{$sessao->idSessao}}" data-horario="{{$sessao->horario->horarioformatado}}" data-sala="{{$sessao->sala->nome}}" data-valor="{{$sessao->valorAssento}}" name="sessao" class="btn btn-primary btn-rounded btn-sm my-0">{{$sessao->horario->horarioformatado}}</button>
                             </td>                                                      
                             @endforeach
                         </tr>
@@ -68,7 +68,7 @@
 			<div class="requestwizard">
 				<div class="requestwizard-row setup-panel">
 					<div class="requestwizard-step">
-			            <a href="#step-1" type="button" class="btn btn-info btn-circle"><i class="fas fa-couch my-fa" style="padding-top: 8px;"></i></a>
+			            <a href="#step-1" type="button" class="btn btn-primary btn-circle"><i class="fas fa-couch my-fa" style="padding-top: 8px;"></i></a>
 			            <p>Escolha de Assentos</p>
 			        </div>			
 					<div class="requestwizard-step">
@@ -84,8 +84,18 @@
 	<form role="form">
 	    <div class="row setup-content" id="step-1">
 	        <div class="col-md-12">
-	            <div class="col-md-12 sub-form needs-validation" style="text-align:center">					
-					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+	            <div class="col-md-12 sub-form needs-validation" style="text-align:center">	
+					<div class="rectangle"></div>
+					<div id="erro" class="invalid-feedback bigger">Máximo de 4 assentos por compra!</div>
+					<br>
+					<div class="form-group row">
+						<br>
+						<label for="valorAssento" class="col-sm-5 col-form-label">Valor por Assento:</label>
+						<div class="col-md-7">
+						<input type="text" readonly class="form-control-plaintext" id="valorAssento">
+						</div>
+					</div>
+					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Próximo</button>
 	            </div>
 	        </div>
 	    </div>
@@ -93,14 +103,25 @@
 	        <div class="col-md-12">
 	            <div class="col-md-12 sub-form needs-validation">
 	                <div class="form-group">
-	                    <label class="control-label">Name of your project</label>
-	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" required/>
+	                    <label class="control-label">Sala</label>
+	                    <input maxlength="200" id="sala" name="sala" type="text" class="form-control" readonly/>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label">Address of project site</label>
-	                    <input maxlength="200" type="text" required="required" class="form-control" placeholder="Enter Company Name" required/>
-	                </div>
-	                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+	                    <label class="control-label">Horário</label>
+	                    <input maxlength="200" id="horario" name="horario" class="form-control" readonly/>
+					</div>
+					<div class="list-group">
+					<label class="control-label">Quais destes assentos são meia-entrada ?</label>
+					</div>
+					<div class="form-group row">
+						<br>
+						<label for="valorTotal" class="col-sm-2 col-form-label">Total:</label>
+						<div class="col-md-10">
+						<input type="text" readonly class="form-control-plaintext" id="valorTotal" name="valorTotal">
+						</div>
+					</div>
+					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Próximo</button>
+					<button class="btn btn-blue-grey prvsBtn btn-lg pull-left" type="button" >Voltar</button>
 	            </div>
 	        </div>
 	    </div>	   
@@ -108,14 +129,25 @@
 	        <div class="col-md-12">
 	            <div class="col-md-12 sub-form needs-validation">
 	                <div class="form-group">
-	                    <label class="control-label">Full Name</label>
-	                    <input  maxlength="100" type="text" class="form-control" placeholder="Enter First Name" required/>
-	                </div>
-	                <div class="form-group">
-	                    <label class="control-label">Day time phone</label>
-	                    <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" required/>
-	                </div>	                
-	                <button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Next</button>
+	                    <label class="control-label">Número do Cartão</label>
+	                    <input  maxlength="100" type="text" class="form-control" id="cc" name="cc" required/>
+					</div>
+					<div class="form-row">						
+						<div class="form-group col-md-3">
+							<label class="control-label">Mês</label>
+							<input maxlength="100" type="text" class="form-control" placeholder="MM" id="mesValidade" name="mesValidade" required/>
+						</div>
+						<div class="form-group col-md-3">
+							<label class="control-label">Ano</label>
+							<input maxlength="100" type="text" class="form-control" placeholder="AAAA" id="anoValidade" name="anoValidade" required/>
+						</div>
+						<div class="form-group col-md-3 offset-3">
+							<label class="control-label">Código</label>
+							<input maxlength="100" type="text" class="form-control" placeholder="123" id="codigo" name="codigo" required/>
+						</div>
+					</div>	                
+					<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" >Comprar</button>
+					<button class="btn btn-blue-grey prvsBtn btn-lg pull-left" type="submit" >Voltar</button>
 	            </div>
 	        </div>
 	    </div> 
