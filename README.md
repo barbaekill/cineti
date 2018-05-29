@@ -27,7 +27,7 @@ A aplicação já está rodando e pronta para ser modificada :)
 
 Obs: Caso utilize o XAMPP para o MySQL/Apache, mude a porta do Apache para 8080.
 
-## Algumas regras de negócio
+## Algumas observações
 
 ### Filmes != Sessões
 Para um filme aparecer para o usuário comum, é necessário que este filme esteja cadastrado em alguma sessão. Já o usuário admin pode visualizar todos os filmes cadastrados.
@@ -38,6 +38,16 @@ Ao criar uma sala, são automaticamente criados 80 assentos em um layout de 5x16
 ### Filmes em destaque
 Para aparecer na tela inicial do sistema, um filme tem que ter ao menos uma sessão em que ele está cadastrado e ter o atributo "destaque" definido como verdadeiro.
 
+### Login de admin
+Ao importar o banco de dados o usuário admin é:
+Email - root@root.com.br
+Senha - root
+
+### Tamando ideal das imagens
+Para uma exibição ideal as imagens de cartaz e cabeçalho devem se aproximar das seguintes dimensões:
+Cartaz - 640 x 940
+Cabeçalho - 1440 x 500
+
 ## TODO
  - Meio de adicionar usuário admin
  - Envio de segunda via por e-mail
@@ -45,3 +55,5 @@ Para aparecer na tela inicial do sistema, um filme tem que ter ao menos uma sess
  - Bulk insert na criação dos assentos
  - Layout customizável de assentos
  - Testes automatizados
+ - Histórico de compra
+ - BUG Sessão Duplicada
