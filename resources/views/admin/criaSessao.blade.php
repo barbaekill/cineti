@@ -34,17 +34,17 @@
                     </div>
                     <div class="form-group">
                         <label for="classificacao">Filme</label>
-                        {!! Form::select('idFilme', $filmes, 'Seleciona', ['class' => 'form-control']) !!}        
+                        {!! Form::select('idFilme', $filmes, 'Seleciona', ['class' => 'form-control', 'required' => 'required']]) !!}        
                     </div>        
                     <!-- Grid row -->                                    
                     <!-- Default input -->
                     <div class="form-group">
                         <label for="classificacao">Sala</label>
-                        {!! Form::select('idSala', $salas, null, ['class' => 'form-control']) !!}                        
+                        {!! Form::select('idSala', $salas, null, ['class' => 'form-control', 'required' => 'required']) !!}                        
                     </div>
                     <div class="form-group">
                         <label for="classificacao">Horário</label>
-                        {!! Form::select('idHorario', $horarios, null, ['class' => 'form-control']) !!}        
+                        {!! Form::select('idHorario', $horarios, null, ['class' => 'form-control', 'required' => 'required']) !!}        
                     </div>     
                     <div class="row justify-content-center">
                         <a href="{{url()->previous()}}"><button type="button" class="btn btn-primary btn-md">Voltar</button></a>

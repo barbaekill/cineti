@@ -46,9 +46,8 @@ class SessaoController extends Controller
         $sessoes = Sessao::where('idSala', $sala->idSala)
                            ->where('idHorario', $horario->idHorario)
                            ->where('data', $request->data)
-                           ->where('ativa',1)
+                           ->where('ativa', 1)
                            ->get();
-
         if($sessoes->count() > 0){
             return back()
                 ->with('message','Já existe uma sessão cadastrada neste horário e sala')

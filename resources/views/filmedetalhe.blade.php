@@ -34,7 +34,9 @@
                 Dirigido por: {{$filme->diretor}}<br>
                 Duração: {{$filme->duracaoMinutos}} minutos<br>
                 Classificação indicativa: {{$filme->classificacao}}</p>
+				@if($sessoes->count() > 0)
                 <h4 class="card-title"><strong>Sessões</strong></h4> 
+				@endif
                 <!--Table-->
                 <table class="table table-striped table-responsive-lg btn-table">
                     <tbody>
