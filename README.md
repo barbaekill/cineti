@@ -7,22 +7,22 @@ Atenção: Necessário ter instalado em sua máquina o Composer!
 ### 1.Importar banco de dados
 Crie um database chamado cineti e execute o arquivo cinetiEstrutura.sql para importar a estrutura do banco de dados. Este arquivo já contém alguns exemplos.Os filmes não terão imagens.
 
-### 1.Configurar seu arquivo .env
+### 2.Configurar seu arquivo .env
 No repositório já há um um arquivo .env de exemplo com as configurações usadas por mim, caso suas configurações de banco de dados sejam diferentes será necessário alterar tanto no arquivo .env quanto em cineti/config/database.php.
 
-### 2.Obter dependências
+### 3.Obter dependências
 Para gerar a pasta "vendor", abra o prompt de comando, vá até a raiz do projeto e execute "composer update --no-scripts" (pode levar algum tempo).
 
-### 3.Gerar APP_KEY
+### 4.Gerar APP_KEY
 Para gerar uma APP_KEY nova vá até a raiz do projeto e execute "php artisan key:generate". Este comando já insere a nova APP_KEY no arquivo .env.
 
-### 4.Criar storage link
+### 5.Criar storage link
 Para que as imagens possam ser acessadas, é necessário criar um symbolic link entre public/storage e storage/app/public. Para isso basta utilizar o comando "php artisan storage:link"
 
-### 5.Iniciar servidor
+### 6.Iniciar servidor
 Agora é só executar o comando "php artisan serve" na raiz do projeto.
 
-### 6.Divirta-se
+### 7.Divirta-se
 A aplicação já está rodando e pronta para ser modificada :)
 
 Obs: Caso utilize o XAMPP para o MySQL/Apache, mude a porta do Apache para 8080.
