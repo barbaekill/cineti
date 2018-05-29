@@ -40,12 +40,16 @@ Para aparecer na tela inicial do sistema, um filme tem que ter ao menos uma sess
 
 ### Login de admin
 Ao importar o banco de dados o usuário admin é:
-Email - root@root.com.br
-Senha - root
+
+
+Email - root@root.com.br  
+Senha - root  
 
 ### Tamando ideal das imagens
 Para uma exibição ideal as imagens de cartaz e cabeçalho devem se aproximar das seguintes dimensões:
-Cartaz - 640 x 940
+
+
+Cartaz - 640 x 940  
 Cabeçalho - 1440 x 500
 
 ## TODO
